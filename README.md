@@ -7,7 +7,7 @@ A responsive customer management dashboard built as part of a technical take-hom
 ## Live Demo
 
 - **GitHub Repository**: [Link to Repository](https://github.com/Laitandada/customer-dashboard)
-- **Production URL**: [Link to Live Site](https://customer-dashboard-micheal.vercel.app/)
+- **Production URL**: [Link to Live Site](https://customer-dashboard-laitandadas-projects.vercel.app/)
 
 ---
 
