@@ -236,7 +236,7 @@ With `revalidate: 300`, repeat requests within the window are served from Next.j
 
 ## AI Usage Disclosure
 
-AI tools were used to accelerate layout construction, write utility style sheets, and debug React Server Component props boundaries. All architectural decisions (RSC layout, URL-driven routing, CSS modules theme structure) and implementation paths were fully authored, reviewed, and finalized by the developer.
+AI tools were used throughout the development process to speed up implementation, assist with styling, and help debug issues around React Server Components and App Router patterns. However, all architectural decisions—including the server-side data-fetching strategy, URL-driven state management, component structure, and overall implementation—were made, reviewed, and finalized by me.
 
 ---
 

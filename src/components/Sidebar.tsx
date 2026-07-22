@@ -37,8 +37,8 @@ export default function Sidebar() {
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setTheme(prefersDark ? "dark" : "light");
+      // Default to light mode regardless of OS preference
+      setTheme("light");
     }
     setMounted(true);
   }, []);
