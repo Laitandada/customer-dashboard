@@ -1,0 +1,33 @@
+.appContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 40px 40px 20px 40px;
+  margin: 0;
+  width: calc(100% - 306px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow-x: hidden;
+  transition: padding 0.3s ease, margin 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .appContainer {
+    flex-direction: column;
+  }
+  
+  .mainContent {
+    width: 100%;
+    padding: 24px 16px;
+    gap: 24px;
+    margin-top: 70px; 
+  }
+}

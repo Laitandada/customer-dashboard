@@ -1,0 +1,460 @@
+.sidebar {
+  width: 306px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 100;
+  transition:
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  overflow: hidden;
+}
+
+/* ── Minimized state ──────────────────────────────────────── */
+.sidebarMinimized {
+  width: 78px;
+  padding: 36px 14px;
+  overflow: visible;
+}
+
+.sidebarMinimized .topSection {
+  gap: 32px;
+}
+
+.sidebarMinimized .navItem {
+  justify-content: center;
+  padding: 14px 10px;
+}
+
+.sidebarMinimized .navItemLabel {
+  display: none;
+}
+
+/* ── Top section ──────────────────────────────────────────── */
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Logo ─────────────────────────────────────────────────── */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: visible;
+  transition: gap 0.3s ease;
+}
+
+/* When minimized, the logo acts as a clickable button */
+.logoMinimized {
+  cursor: pointer;
+  gap: 0;
+  justify-content: center;
+  width: 100%;
+}
+
+.logoIcon {
+  color: var(--text-main);
+  /* animation: spinSlow 20s linear infinite; */
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+
+}
+
+.logoMinimized .logoIcon {
+  transform: scale(1.05);
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logoText {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 200px;
+  transition: max-width 0.3s ease, opacity 0.25s ease;
+}
+
+.sidebarMinimized .logoText {
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.logoVersion {
+  font-size: 10px;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+/* Tooltip shown on logo hover when sidebar is minimized */
+.logoTooltip {
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--text-main);
+  color: var(--bg-sidebar);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.logoTooltip::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-right-color: var(--text-main);
+}
+
+.logoMinimized:hover .logoTooltip {
+  opacity: 1;
+}
+
+/* ── Header controls (theme + minimize) ───────────────────── */
+.headerControls {
+  display: flex;
+  align-items: center;
+  
+  flex-shrink: 0;
+}
+
+.themeToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0px 8px 8px;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.themeToggle:hover {
+  background-color: var(--border-color-muted);
+  color: var(--text-main);
+  padding: 8px;
+}
+
+.minimizeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.minimizeBtn:hover {
+  background-color: var(--border-color-muted);
+  color: var(--text-main);
+}
+
+/* Expand button shown at bottom when minimized */
+.expandBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: var(--transition-smooth);
+}
+
+.expandBtn:hover {
+  background-color: var(--border-color-muted);
+  color: var(--text-main);
+}
+
+/* ── Nav Menu ─────────────────────────────────────────────── */
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.navItemLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.navItemLabel {
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.navItemIcon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  transition: var(--transition-smooth);
+}
+
+.navItem:hover {
+  background-color: var(--primary-accent-light);
+  color: var(--primary-accent);
+}
+
+.navItem:hover .chevron {
+  color: var(--primary-accent);
+  transform: translateX(3px);
+}
+
+.navItemActive {
+  background-color: var(--primary-accent);
+  color: #FFFFFF;
+}
+
+.navItemActive:hover {
+  background-color: var(--primary-accent);
+  color: #FFFFFF;
+}
+
+.navItemActive .chevron {
+  color: #FFFFFF;
+}
+
+.navItemActive:hover .chevron {
+  color: #FFFFFF;
+  transform: none;
+}
+
+/* ── Bottom Section ───────────────────────────────────────── */
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Promo Card */
+.promoCard {
+  background: linear-gradient(137.9deg, #EAABF0 0%, #4623E9 100%);
+  border-radius: 20px;
+  padding: 24px 20px;
+  text-align: center;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(89, 50, 234, 0.25);
+}
+
+.promoTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.promoButton {
+  background-color: #FFFFFF;
+  color: #4925E9;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-lg);
+  font-size: 12px;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+/* 
+.promoButton:hover {
+  background-color: var(--primary-accent-light);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+} */
+
+/* Profile Footer */
+.profileFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  position: relative;
+}
+
+.profileFooter:hover .logoTooltip {
+  opacity: 1;
+}
+
+.profileInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.profileRole {
+  font-size: 10px;
+  color: var(--text-muted-dark);
+}
+
+.profileChevron {
+  color: var(--text-muted-dark);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.profileChevron:hover {
+  color: var(--text-main);
+}
+
+/* ── Mobile Fixed Header ──────────────────────────────────── */
+.mobileHeader {
+  display: none;
+}
+
+.searchContainer{
+  display: block;
+}
+
+/* ── Responsive adjustments ───────────────────────────────── */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 70px);
+    transform: translateX(-100%);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.05);
+  }
+
+  /* On mobile, minimized state is ignored — use overlay instead */
+  .sidebarMinimized {
+    width: 280px;
+    padding: 36px 28px;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .mobileHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 20px;
+    z-index: 110;
+  }
+
+  .menuToggleBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-main);
+    padding: 8px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menuToggleBtn:hover {
+    background-color: var(--border-color-muted);
+  }
+  .header{
+    display: none;
+  }
+  .searchContainer{
+  display: none;
+}
+
+}
