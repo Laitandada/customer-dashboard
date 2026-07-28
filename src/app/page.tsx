@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: PageProps) {
   const skip = (currentPage - 1) * limit;
 
   // Build the users API URL
-  let usersApiUrl = `https://dummy/users/search?q=${encodeURIComponent(
+  let usersApiUrl = `https://dummyjson.com/users/search?q=${encodeURIComponent(
     search
   )}&limit=${limit}&skip=${skip}`;
 
@@ -32,8 +32,8 @@ export default async function Home({ searchParams }: PageProps) {
 
   const [usersRes, totalDbRes, avatarsRes] = await Promise.all([
     fetch(usersApiUrl, { next: { revalidate: 300 } }),
-    fetch("https://dummy/users?limit=0", { next: { revalidate: 300 } }),
-    fetch("https://dummy/users?limit=5", { next: { revalidate: 300 } }),
+    fetch("https://dummyjson.com/users?limit=0", { next: { revalidate: 300 } }),
+    fetch("https://dummyjson.com/users?limit=5", { next: { revalidate: 300 } }),
   ]);
 
   if (!usersRes.ok || !totalDbRes.ok || !avatarsRes.ok) {
