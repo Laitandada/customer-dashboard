@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Hexagon,
   ChevronRight,
@@ -16,16 +18,15 @@ import {
 } from "lucide-react";
 import styles from "./sidebar.module.css";
 
-
-
 interface NavItem {
   name: string;
   icon: string;
+  path: string;
   hasSubmenu?: boolean;
-  isActive?: boolean;
 }
 
 export default function Sidebar() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -61,31 +62,36 @@ export default function Sidebar() {
     {
       name: "Dashboard",
       icon: "/icons/dashboard-icon.svg",
+      path: "/overview",
     },
     {
       name: "Product",
       icon: "/icons/product-icon.svg",
+      path: "#",
       hasSubmenu: true,
     },
     {
       name: "Customers",
       icon: "/icons/customer-icon.svg",
+      path: "/",
       hasSubmenu: true,
-      isActive: true,
     },
     {
       name: "Income",
       icon: "/icons/wallet-icon.svg",
+      path: "#",
       hasSubmenu: true,
     },
     {
       name: "Promote",
       icon: "/icons/promote-icon.svg",
+      path: "#",
       hasSubmenu: true,
     },
     {
       name: "Help",
       icon: "/icons/help-icon.svg",
+      path: "#",
       hasSubmenu: true,
     },
   ];
@@ -187,29 +193,36 @@ export default function Sidebar() {
 
           <nav>
             <ul className={styles.navMenu}>
-              {navItems.map((item, idx) => (
-                <li
-                  key={idx}
-                  className={`${styles.navItem} ${item.isActive ? styles.navItemActive : ""
-                    }`}
-                  onClick={() => setIsOpen(false)}
-                  title={isMinimized ? item.name : undefined}
-                >
-                  <div className={styles.navItemLeft}>
-                    <Image
-                      src={item.icon}
-                      alt={item.name}
-                      width={18}
-                      height={18}
-                      className={styles.navItemIcon}
-                    />
-                    <span className={styles.navItemLabel}>{item.name}</span>
-                  </div>
-                  {item.hasSubmenu && !isMinimized && (
-                    <ChevronRight className={styles.chevron} />
-                  )}
-                </li>
-              ))}
+              {navItems.map((item, idx) => {
+                const isActive = item.path === "/" ? pathname === "/" : pathname.startsWith(item.path);
+                return (
+                  <Link
+                    key={idx}
+                    href={item.path}
+                    style={{ textDecoration: "none" }}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <li
+                      className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
+                      title={isMinimized ? item.name : undefined}
+                    >
+                      <div className={styles.navItemLeft}>
+                        <Image
+                          src={item.icon}
+                          alt={item.name}
+                          width={18}
+                          height={18}
+                          className={styles.navItemIcon}
+                        />
+                        <span className={styles.navItemLabel}>{item.name}</span>
+                      </div>
+                      {item.hasSubmenu && !isMinimized && (
+                        <ChevronRight className={styles.chevron} />
+                      )}
+                    </li>
+                  </Link>
+                );
+              })}
             </ul>
           </nav>
         </div>
