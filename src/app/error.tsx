@@ -63,7 +63,7 @@ export default function Error({ error, reset }: ErrorProps) {
           }}
         >
           We encountered an error while fetching or rendering the customer data.
-          This could be due to a temporary network glitch or API rate limits.
+          Please retry.
         </p>
         {error.message && (
           <div
@@ -115,31 +115,7 @@ export default function Error({ error, reset }: ErrorProps) {
           Try Again
         </button>
 
-        <Link
-          href="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "12px 24px",
-            fontSize: "14px",
-            fontWeight: 600,
-            color: "var(--text-main)",
-            backgroundColor: "var(--bg-card)",
-            border: "1px solid var(--border-color)",
-            borderRadius: "var(--border-radius-md)",
-            cursor: "pointer",
-            transition: "var(--transition-smooth)",
-            textDecoration: "none",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--border-color-muted)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--bg-card)";
-          }}
-        >
-          Return Home
-        </Link>
+
       </div>
 
       <style jsx global>{`
